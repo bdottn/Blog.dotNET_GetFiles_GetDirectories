@@ -25,5 +25,15 @@ namespace Physical
         {
             return Directory.GetDirectories(path).ToList();
         }
+
+        public List<string> GetDirectories(string path, string searchPattern)
+        {
+            return Directory.GetDirectories(path, searchPattern).ToList();
+        }
+
+        public List<string> GetDirectories(string path, string searchPattern, SearchOption searchOption)
+        {
+            return Directory.GetDirectories(path, searchPattern, searchOption).ToList();
+        }
     }
 }
