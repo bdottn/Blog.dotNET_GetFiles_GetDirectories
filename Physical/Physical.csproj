@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryInfoReader.cs" />
     <Compile Include="DirectoryReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
