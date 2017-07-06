@@ -66,26 +66,13 @@ namespace Physical.UnitTest
         }
 
         [TestMethod]
-        public void GetDirectoriesTest_傳入路徑ONE_PIECE_預期得到目錄下所有目錄路徑()
+        public void GetFilesTest_傳入路徑ONE_PIECE_搜尋模式為星_搜尋選項為包含所有子目錄_預期得到目錄下所有符合搜尋模式的檔案路徑()
         {
             var path = Path.Combine(this.testFolderPath, "ONE_PIECE");
 
-            var expected =
-                new List<string>()
-                {
-                    Path.Combine(path, "QStyle"),
-                    Path.Combine(path, "Wallpaper"),
-                };
+            var searchPattern = @"*";
 
-            var actual = this.reader.GetDirectories(path);
-
-            expected.ToExpectedObject().ShouldEqual(actual);
-        }
-
-        [TestMethod]
-        public void GetAllFilesTest_傳入路徑ONE_PIECE_預期得到目錄下所有檔案路徑()
-        {
-            var path = Path.Combine(this.testFolderPath, "ONE_PIECE");
+            var searchOption = SearchOption.AllDirectories;
 
             var expected =
                 new List<string>()
@@ -103,17 +90,19 @@ namespace Physical.UnitTest
                     Path.Combine(path, "Wallpaper", "04.jpg"),
                 };
 
-            var actual = this.reader.GetAllFiles(path);
+            var actual = this.reader.GetFiles(path, searchPattern, searchOption);
 
             expected.ToExpectedObject().ShouldEqual(actual);
         }
 
         [TestMethod]
-        public void GetAllFilesTest_傳入路徑TestFolder_搜尋模式為png_預期得到目錄下所有符合搜尋模式的檔案路徑()
+        public void GetFilesTest_傳入路徑TestFolder_搜尋模式為png_搜尋選項為包含所有子目錄_預期得到目錄下所有符合搜尋模式的檔案路徑()
         {
             var path = this.testFolderPath;
 
             var searchPattern = @"*.png";
+
+            var searchOption = SearchOption.AllDirectories;
 
             var expected =
                 new List<string>()
@@ -136,7 +125,24 @@ namespace Physical.UnitTest
                     Path.Combine(path, "SLAM_DUNK", "QStyle", "16_山王_澤北.png"),
                 };
 
-            var actual = this.reader.GetAllFiles(path, searchPattern);
+            var actual = this.reader.GetFiles(path, searchPattern, searchOption);
+
+            expected.ToExpectedObject().ShouldEqual(actual);
+        }
+
+        [TestMethod]
+        public void GetDirectoriesTest_傳入路徑ONE_PIECE_預期得到目錄下所有目錄路徑()
+        {
+            var path = Path.Combine(this.testFolderPath, "ONE_PIECE");
+
+            var expected =
+                new List<string>()
+                {
+                    Path.Combine(path, "QStyle"),
+                    Path.Combine(path, "Wallpaper"),
+                };
+
+            var actual = this.reader.GetDirectories(path);
 
             expected.ToExpectedObject().ShouldEqual(actual);
         }
