@@ -146,5 +146,44 @@ namespace Physical.UnitTest
 
             expected.ToExpectedObject().ShouldEqual(actual);
         }
+
+        [TestMethod]
+        public void GetDirectoriesTest_傳入路徑ONE_PIECE_搜尋模式為QStyle_預期得到目錄下所有符合搜尋模式的目錄路徑()
+        {
+            var path = Path.Combine(this.testFolderPath, "ONE_PIECE");
+
+            var searchPattern = @"QStyle";
+
+            var expected =
+                new List<string>()
+                {
+                    Path.Combine(path, "QStyle"),
+                };
+
+            var actual = this.reader.GetDirectories(path, searchPattern);
+
+            expected.ToExpectedObject().ShouldEqual(actual);
+        }
+
+        [TestMethod]
+        public void GetDirectoriesTest_傳入路徑TestFolder_搜尋模式為QStyle_搜尋選項為包含所有子目錄_預期得到目錄下最底層目錄符合搜尋模式的目錄路徑()
+        {
+            var path = this.testFolderPath;
+
+            var searchPattern = @"*QStyle*";
+
+            var searchOption = SearchOption.AllDirectories;
+
+            var expected =
+                new List<string>()
+                {
+                    Path.Combine(path, "ONE_PIECE", "QStyle"),
+                    Path.Combine(path, "SLAM_DUNK", "QStyle"),
+                };
+
+            var actual = this.reader.GetDirectories(path, searchPattern, searchOption);
+
+            expected.ToExpectedObject().ShouldEqual(actual);
+        }
     }
 }
